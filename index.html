@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Аптека Рудный — доработки 1С</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --ink: #16181d;
+    --muted: #5f6673;
+    --line: #e3e6eb;
+    --accent: #0b7a5c;
+    --accent-soft: #e5f4ef;
+    --red: #c62828;
+    --violet: #6a1b9a;
+    --amber: #a15c00;
+    --amber-soft: #fff3e0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.55 -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 64px; }
+  .brand { font-size: 14px; color: var(--muted); letter-spacing: .02em; }
+  .brand b { color: var(--ink); }
+  h1 { font-size: 34px; line-height: 1.2; margin: 14px 0 10px; }
+  .lead { color: var(--muted); margin: 0 0 24px; max-width: 720px; }
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .summary div { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .summary b { display: block; font-size: 26px; }
+  .summary span { color: var(--muted); font-size: 14px; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+  nav a { text-decoration: none; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 14px; }
+  nav a:hover { border-color: var(--accent); color: var(--accent); }
+  section.area { margin-top: 44px; }
+  .area-head { display: flex; align-items: baseline; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 18px; }
+  .area-num { font-size: 42px; font-weight: 800; color: var(--accent); line-height: 1; }
+  .area-head h2 { margin: 0; font-size: 26px; }
+  .area-head p { margin: 0 0 0 auto; color: var(--muted); font-size: 14px; }
+  .item { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; margin-bottom: 14px; }
+  .item-top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .item h3 { margin: 0; font-size: 19px; flex: 1 1 320px; }
+  .date { color: var(--muted); font-size: 14px; white-space: nowrap; }
+  .badge { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+  .ok { background: var(--accent-soft); color: var(--accent); }
+  .warn { background: var(--amber-soft); color: var(--amber); }
+  .item ul { margin: 8px 0 0; padding-left: 20px; }
+  .item li { margin: 4px 0; }
+  .item .note { margin-top: 10px; font-size: 14px; color: var(--muted); }
+  .k { display: inline-block; font: 600 13px/1 Consolas, monospace; background: #eef0f3; border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px; }
+  .c-red { color: var(--red); font-weight: 600; }
+  .c-violet { color: var(--violet); font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: #f0f2f5; font-weight: 600; }
+  .steps { counter-reset: s; list-style: none; padding-left: 0 !important; }
+  .steps li { counter-increment: s; padding-left: 34px; position: relative; }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 13px; display: grid; place-items: center; }
+  details { margin-top: 10px; }
+  summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: 14px; }
+  .consult { background: var(--card); border: 1px dashed var(--line); border-radius: 14px; padding: 6px 22px; }
+  .consult div { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .consult div:last-child { border-bottom: 0; }
+  .consult b { display: block; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; }
+  @media (max-width: 600px) { h1 { font-size: 26px; } .area-head p { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="brand"><b>Аптека Рудный</b> · 1С:Аптека для Казахстана · Бухгалтерия · WebKassa</div>
+<h1>Доработки 1С: что сделано</h1>
+<p class="lead">Все изменения, выполненные в ваших базах с августа по октябрь 2026 года. По каждому пункту — что изменилось для кассиров и бухгалтерии.</p>
+
+<div class="summary">
+  <div><b>20</b><span>доработок установлено</span></div>
+  <div><b>5</b><span>направлений</span></div>
+  <div><b>0</b><span>изменений в конфигурации Бухгалтерии</span></div>
+  <div><b>авг — окт</b><span>2026 год</span></div>
+</div>
+
+<nav>
+  <a href="#rmk">01 · РМК</a>
+  <a href="#webkassa">02 · Чеки WebKassa</a>
+  <a href="#reports">03 · Отчёты и ОРП</a>
+  <a href="#exchange">04 · Обмен с Бухгалтерией</a>
+  <a href="#other">05 · Маркировка и прочее</a>
+  <a href="#consult">Консультации</a>
+</nav>
+
+<!-- ========== 01 РМК ========== -->
+<section class="area" id="rmk">
+  <div class="area-head"><span class="area-num">01</span><h2>Рабочее место кассира (РМК)</h2><p>6 доработок</p></div>
+
+  <div class="item">
+    <div class="item-top"><h3>Три способа закрыть чек: WebKassa, «1С» и «Каспи»</h3><span class="date">21–22.08</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li><span class="k">Enter</span> — как и раньше: фискальный чек через WebKassa.</li>
+      <li><span class="c-red">Кнопка «1С»</span> — продажа наличными только в 1С, без WebKassa. Вид оплаты «Наличные 1С».</li>
+      <li><span class="c-violet">Кнопка «Каспи»</span> — оплата на отдельный счёт Каспи, тоже без WebKassa. Вид оплаты «Отдельный Каспи».</li>
+      <li>Если нужного вида оплаты нет в справочнике, он создаётся автоматически.</li>
+      <li>Предоплата, рассрочка и зачёт аванса через эти кнопки заблокированы.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Кнопки «1С» и «Каспи» на всех формах оплаты и горячие клавиши</h3><span class="date">22.08</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Кнопки есть и на простой оплате, и на сложной (оплата картой, <span class="k">F7</span>).</li>
+      <li><span class="k">Num +</span> работает как «1С», <span class="k">Num −</span> как «Каспи».</li>
+      <li>Кнопки стоят в колонке с Enter, у каждой свой цвет.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Товарный чек (нефискальный слип) для продаж «1С» и «Каспи»</h3><span class="date">22.08</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Печатается на чековом принтере, без отправки в WebKassa.</li>
+      <li>В слипе: шапка, список товаров, НДС, вид оплаты, кассир и подпись.</li>
+      <li>Под названием товара печатается код NTIN.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Подсказка, если в чеке товар с «@»</h3><span class="date">23.08</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>При нажатии Enter появляется вопрос «Провести через вебкасса? (в чеке товар с собакой)».</li>
+      <li>«Отмена» возвращает к редактированию чека.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Галочка «Печатать чек»</h3><span class="date">16.09</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Заменила вопрос «Печатать чек?», из-за которого 1С вылетала после включения маркировки.</li>
+      <li>Галочка есть на форме РМК и на обеих формах оплаты.</li>
+      <li>Значение запоминается для каждого кассира, по умолчанию включено.</li>
+      <li>Для «1С»/«Каспи» печатает товарный слип, для WebKassa — фискальный чек.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Исправлены вылеты РМК</h3><span class="date">16.09</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Двойная печать и вылет при оплате через Enter.</li>
+      <li>Вылеты после включения учёта маркировки.</li>
+      <li>Ошибка при закрытии кассовой смены.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== 02 WebKassa ========== -->
+<section class="area" id="webkassa">
+  <div class="area-head"><span class="area-num">02</span><h2>Чеки WebKassa</h2><p>4 доработки</p></div>
+
+  <div class="item">
+    <div class="item-top"><h3>Названия товаров из 1С на печатном чеке</h3><span class="date">23.08</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>В WebKassa (ОФД) чек уходит как раньше.</li>
+      <li>На бумаге — названия товаров из 1С, а не из WebKassa.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Чистый печатный чек продажи и возврата</h3><span class="date">25.08</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Убраны номер смены, «САТУ», «ПРОДАЖА/ВОЗВРАТ», оператор ОФД, «для проверки чека» и адрес сайта.</li>
+      <li>Фискальный номер печатается как «Чек №…», номер чека в смене оставлен.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Стабильная печать чеков с маркированными товарами</h3><span class="date">16.09</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>На бумаге печатается короткий код маркировки без служебных символов; в ОФД уходит полный код.</li>
+      <li>Исправлено зависание печати при нулевой ширине ленты.</li>
+      <li>Исправлены «тихие» вылеты 1С при печати.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Убрана приписка «(упак)»</h3><span class="date">22.10</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Было: «Ай-Фос 150 № 20 (упак)». Стало: «Ай-Фос 150 № 20».</li>
+      <li>Приписки нет ни в WebKassa, ни на бумажном чеке.</li>
+      <li>Строка количества печатается как «1 x цена».</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== 03 Отчёты ========== -->
+<section class="area" id="reports">
+  <div class="area-head"><span class="area-num">03</span><h2>Отчёты и ОРП</h2><p>5 доработок</p></div>
+
+  <div class="item">
+    <div class="item-top"><h3>Отчёт за смену с отдельными строками «1С» и «Каспи»</h3><span class="date">21–22.08</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Цветные строки <span class="c-red">■ Наличные 1С</span> и <span class="c-violet">■ Отдельный Каспи</span>.</li>
+      <li>Эти суммы не смешиваются с фискальной наличной выручкой.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Кнопка «Отчёт Каспи» в РМК</h3><span class="date">22.08</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Отдельный отчёт по продажам «Отдельный Каспи» за текущую смену.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Два отчёта о розничных продажах при закрытии смены</h3><span class="date">04–05.09, 17–18.09</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Создаются два ОРП: по продажам WebKassa и по продажам «1С / Каспи».</li>
+      <li>У ОРП «1С / Каспи» комментарий «(1С / Каспи)», у ОРП WebKassa комментарий пустой.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Разделение ОРП по кассам, автоматически</h3><span class="date">18–19.09</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Настройка «Настройки разделенного ОРП» задаётся отдельно для каждой кассы.</li>
+      <li>Если в смене есть и чеки WebKassa, и чеки «1С / Каспи», ОРП делится сам.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Каспи на вкладке «Оплата платёжными картами» в ОРП</h3><span class="date">11.10</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Вид оплаты «Отдельный Каспи» теперь «Платёжная система».</li>
+      <li>В ОРП Каспи попадает на карточную вкладку, наличные больше не задваиваются.</li>
+    </ul>
+    <p class="note">Ранее созданные ОРП автоматически не пересчитываются.</p>
+  </div>
+</section>
+
+<!-- ========== 04 Обмен ========== -->
+<section class="area" id="exchange">
+  <div class="area-head"><span class="area-num">04</span><h2>Обмен Аптека ↔ Бухгалтерия</h2><p>2 доработки</p></div>
+
+  <div class="item">
+    <div class="item-top"><h3>ОРП «1С / Каспи» не передаются в Бухгалтерию</h3><span class="date">17.09 · 22.09 · 11.10</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Настройка администратора «Исключать ОРП 1С/Каспи из обмена с БК» — включена по просьбе бухгалтера.</li>
+      <li>ОРП по WebKassa уходят в Бухгалтерию как обычно.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Защита проведённых документов в Бухгалтерии от изменений из Аптеки</h3><span class="date">22.10 · 27.10</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li><b>Документ в БК проведён</b> — изменения из Аптеки не загружаются: строки, суммы, реквизиты и проведение остаются как есть.</li>
+      <li><b>Документ в БК не проведён</b> — обновляется из Аптеки как раньше.</li>
+      <li><b>Документа в БК ещё нет</b> — создаётся как обычно.</li>
+      <li>Отмена проведения и пометка на удаление из Аптеки на проведённый документ не действуют.</li>
+      <li>Справочники и обмен из Бухгалтерии в Аптеку не затронуты.</li>
+      <li>Конфигурации не менялись — всё сделано в правилах обмена на основе типовых.</li>
+    </ul>
+
+    <details>
+      <summary>Какие документы защищены</summary>
+      <table>
+        <tr><th>Документ в Аптеке</th><th>Документ в Бухгалтерии</th></tr>
+        <tr><td>Поступление товаров</td><td>Поступление товаров и услуг</td></tr>
+        <tr><td>Возврат товаров поставщику</td><td>Возврат товаров поставщику</td></tr>
+        <tr><td>Реализация товаров</td><td>Реализация товаров и услуг</td></tr>
+        <tr><td>Возврат товаров от покупателя</td><td>Возврат товаров от покупателя</td></tr>
+        <tr><td>Отчёт о розничных продажах</td><td>ОРП, Реализация, ПКО, Платёжное поручение входящее, Корректировка долга</td></tr>
+        <tr><td>Операция по платёжной карте</td><td>Оплата от покупателя платёжной картой</td></tr>
+        <tr><td>Передача товаров между организациями</td><td>Реализация и Поступление товаров и услуг</td></tr>
+        <tr><td>Оприходование товаров</td><td>Оприходование товаров</td></tr>
+        <tr><td>Сборка товаров</td><td>Комплектация номенклатуры</td></tr>
+        <tr><td>Перемещение товаров</td><td>Перемещение товаров</td></tr>
+        <tr><td>Пересчёт товаров</td><td>Инвентаризация товаров на складе</td></tr>
+        <tr><td>Списание товаров</td><td>Списание товаров, Требование-накладная</td></tr>
+        <tr><td>Пересортица товаров</td><td>Оприходование и Списание товаров</td></tr>
+        <tr><td>Применение цен номенклатуры</td><td>Установка цен номенклатуры</td></tr>
+        <tr><td>Ведомость на выплату зарплаты</td><td>Зарплата к выплате организаций</td></tr>
+        <tr><td>Приходный / Расходный кассовый ордер</td><td>Приходный / Расходный кассовый ордер</td></tr>
+        <tr><td>Счёт-фактура выданный / полученный</td><td>Счёт-фактура выданный / полученный</td></tr>
+      </table>
+    </details>
+
+    <details>
+      <summary>Как обновить проведённый документ, если всё-таки нужно</summary>
+      <ul class="steps">
+        <li>В Бухгалтерии отменить проведение документа.</li>
+        <li>В Аптеке заново записать документ, чтобы он попал в обмен.</li>
+        <li>Выполнить обмен — документ обновится.</li>
+        <li>Провести документ в Бухгалтерии.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<!-- ========== 05 Прочее ========== -->
+<section class="area" id="other">
+  <div class="area-head"><span class="area-num">05</span><h2>Маркировка и прочее</h2><p>3 доработки</p></div>
+
+  <div class="item">
+    <div class="item-top"><h3>Маркировка, ИС ЦЭДМ</h3><span class="date">11–15.09</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Коды транспортной упаковки раскладываются на коды отдельных пачек.</li>
+      <li>GTIN, штрихкод и номенклатура заполняются по коду маркировки.</li>
+      <li>Ранее созданные акты исправлены разовой обработкой.</li>
+      <li>Исправлено чтение марок при сканировании (например, Цитрамон).</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Порядок в расширениях</h3><span class="date">11–18.09</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Старое расширение, конфликтовавшее с новыми доработками, отключено.</li>
+      <li>Исправлены конфликты языка в расширениях.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <div class="item-top"><h3>Исправлены ошибки обмена после обновления правил</h3><span class="date">22–27.10</span><span class="badge ok">Установлено</span></div>
+    <ul>
+      <li>Ошибки при загрузке справочников и регистров в Бухгалтерию.</li>
+      <li>Ошибка при отправке данных в Аптеку (правила регистрации).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== Консультации ========== -->
+<section class="area" id="consult">
+  <div class="area-head"><span class="area-num">i</span><h2>Консультации</h2><p>без изменений в базе</p></div>
+  <div class="consult">
+    <div><b>«/» в названиях на чеке · 23.08</b>Символ берётся из названия товара в 1С — исправляется в карточке товара.</div>
+    <div><b>Казахские буквы на чеке · 16.09</b>Причина в кодовой странице или драйвере принтера, а не в 1С.</div>
+    <div><b>Характеристики в Бухгалтерии · 17–22.09</b>В Бухгалтерии нет характеристик номенклатуры; фасовки удобнее вести отдельной номенклатурой. Правила обмена по характеристикам возвращены к типовым.</div>
+    <div><b>Перезаписанное поступление · 22.10</b>Документ в Бухгалтерии был не проведён, поэтому обновился из Аптеки — так и должно работать.</div>
+  </div>
+</section>
+
+<footer>Аптека Рудный · описание доработок 1С · обновлено 29.10.2026</footer>
+</div>
+</body>
+</html>
